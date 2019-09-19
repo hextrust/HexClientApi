@@ -1,0 +1,22 @@
+{
+  "name": "hex-client-api",
+  "version": "1.0.0",
+  "description": "Node helper for accessing Hex Trust external APIs",
+  "main": "HexClientApi.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.int.hextech.io:external/hex-client-api.git"
+  },
+  "keywords": [
+    "API"
+  ],
+  "author": "Hex Trust",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  }
+}
