@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.int.hextech.io:external/hex-client-api.git"
+    "url": "github.com:hextrust/HexClientApi.git"
   },
   "keywords": [
     "API"
