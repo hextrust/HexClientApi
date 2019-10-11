@@ -1,22 +1,25 @@
 {
   "name": "hex-client-api",
-  "version": "1.0.0",
-  "description": "Node helper for accessing Hex Trust external APIs",
-  "main": "HexClientApi.js",
+  "version": "0.2.24",
+  "description": "Handle HTTP/HTTPS requests",
+  "author": "Chiro <dung.tran@hextech.io>",
+  "license": "MIT",
+  "private": true,
+  "types": "./built/index.d.ts",
+  "main": "./built/index.js",
   "scripts": {
+    "build": "tsc && node ./increase-built.js",
+    "doc": "typedoc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:hextrust/HexClientApi.git"
+  "devDependencies": {
+    "@types/node": "^12.7.2",
+    "typedoc": "^0.15.0",
+    "typescript": "^3.6.2"
   },
-  "keywords": [
-    "API"
-  ],
-  "author": "Hex Trust",
-  "license": "ISC",
   "dependencies": {
+    "@types/request-promise-native": "^1.0.17",
     "request": "^2.88.0",
-    "request-promise": "^4.2.4"
+    "request-promise-native": "^1.0.7"
   }
 }
