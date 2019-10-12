@@ -1,7 +1,6 @@
-import requestPromise from 'request-promise-native'
-import url, { UrlObject } from 'url'
-import { Utilities } from './utilities'
-
+import requestPromise from 'request-promise-native';
+import url, { UrlObject } from 'url';
+import { Utilities } from './utilities';
 
 /**
  * Hex Request core with middle-ware
@@ -9,14 +8,13 @@ import { Utilities } from './utilities'
  * @class HexRequest
  */
 export class HexRequest {
-
   /**
    * Base URL of endpoint
    * @private
    * @type {UrlObject}
    * @memberof HexRequest
    */
-  private _baseURL: UrlObject
+  private _baseURL: UrlObject;
 
   /**
    * Middle ware stack
@@ -24,8 +22,7 @@ export class HexRequest {
    * @type {Array<Function>}
    * @memberof HexRequest
    */
-  private _middleware: Array<Function>
-
+  private _middleware: Array<Function>;
 
   /**
    * Creates an instance of HexRequest.
@@ -33,8 +30,8 @@ export class HexRequest {
    * @memberof HexRequest
    */
   constructor(apiBaseUri: string) {
-    this._baseURL = url.parse(apiBaseUri)
-    this._middleware = []
+    this._baseURL = url.parse(apiBaseUri);
+    this._middleware = [];
   }
 
   /**
@@ -43,7 +40,7 @@ export class HexRequest {
    * @memberof HexRequest
    */
   public use(middleware: Function) {
-    this._middleware.push(middleware)
+    this._middleware.push(middleware);
   }
 
   /**
@@ -53,7 +50,7 @@ export class HexRequest {
    */
   public getHost(): string {
     //@ts-ignore
-    return this._baseURL.host
+    return this._baseURL.host;
   }
 
   /**
@@ -64,15 +61,15 @@ export class HexRequest {
    * @memberof HexRequest
    */
   public request(requestPath: string, otpions: any) {
-    console.log(requestPath, otpions)
-    let requestUri = Utilities.toUri(this._baseURL, requestPath)
+    console.log(requestPath, otpions);
+    let requestUri = Utilities.toUri(this._baseURL, requestPath);
     for (let i = 0; i < this._middleware.length; i++) {
-      otpions = this._middleware[i](otpions)
+      otpions = this._middleware[i](otpions);
     }
     //@ts-ignore
     return requestPromise({
       uri: requestUri,
-      ...otpions
-    })
+      ...otpions,
+    });
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "hex-client-api",
-  "version": "0.2.24",
+  "version": "0.2.26",
   "description": "Handle HTTP/HTTPS requests",
   "author": "Chiro <dung.tran@hextech.io>",
   "license": "MIT",
