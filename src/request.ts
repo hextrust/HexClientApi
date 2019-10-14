@@ -61,7 +61,6 @@ export class HexRequest {
    * @memberof HexRequest
    */
   public request(requestPath: string, otpions: any) {
-    console.log(requestPath, otpions);
     let requestUri = Utilities.toUri(this._baseURL, requestPath);
     for (let i = 0; i < this._middleware.length; i++) {
       otpions = this._middleware[i](otpions);
