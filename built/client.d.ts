@@ -5,7 +5,7 @@ export declare enum RequestMethod {
     PATCH = "PATCH",
     PUT = "PUT"
 }
-export declare class HexApiClient {
+export declare class HexClientApi {
     private _config;
     private _rqClient;
     constructor(endPoint: string, apiKey: string, secret: string);

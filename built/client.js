@@ -10,12 +10,12 @@ var RequestMethod;
     RequestMethod["PATCH"] = "PATCH";
     RequestMethod["PUT"] = "PUT";
 })(RequestMethod = exports.RequestMethod || (exports.RequestMethod = {}));
-class HexApiClient {
+class HexClientApi {
     constructor(endPoint, apiKey, secret) {
         this._config = {
             apiKey,
             secret,
-            endPoint
+            endPoint,
         };
         this._rqClient = new request_1.HexRequest(endPoint);
         this._rqClient.use(utilities_1.Utilities.timeStampHeader);
@@ -36,9 +36,9 @@ class HexApiClient {
         let options = {
             method,
             headers: {
-                nonce: utilities_1.Utilities.getNonce()
+                nonce: utilities_1.Utilities.getNonce(),
             },
-            json: true
+            json: true,
         };
         if (method === 'POST') {
             options['headers']['digest'] = utilities_1.Utilities.genDigest(body);
@@ -51,4 +51,4 @@ class HexApiClient {
         return this._rqClient.request(path, options);
     }
 }
-exports.HexApiClient = HexApiClient;
+exports.HexClientApi = HexClientApi;

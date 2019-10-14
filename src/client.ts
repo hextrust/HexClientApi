@@ -1,7 +1,7 @@
-import { HexRequest } from './request'
-import { Utilities } from './utilities'
+import { HexRequest } from './request';
+import { Utilities } from './utilities';
 
-/** 
+/**
  * HTTP Request methods
  * @export
  * @enum {string}
@@ -11,7 +11,7 @@ export enum RequestMethod {
   POST = 'POST',
   DELETE = 'DELETE',
   PATCH = 'PATCH',
-  PUT = 'PUT'
+  PUT = 'PUT',
 }
 
 /**
@@ -19,9 +19,9 @@ export enum RequestMethod {
  * @interface HexApiConfig
  */
 interface HexApiConfig {
-  apiKey: string
-  secret: string
-  endPoint: string
+  apiKey: string;
+  secret: string;
+  endPoint: string;
 }
 
 /**
@@ -29,15 +29,14 @@ interface HexApiConfig {
  * @export
  * @class HexApiClient
  */
-export class HexApiClient {
-
+export class HexClientApi {
   /**
    * Hex configuration
    * @private
    * @type {HexApiConfig}
    * @memberof HexApiClient
    */
-  private _config: HexApiConfig
+  private _config: HexApiConfig;
 
   /**
    * Hex Request Client
@@ -45,7 +44,7 @@ export class HexApiClient {
    * @type {HexRequest}
    * @memberof HexApiClient
    */
-  private _rqClient: HexRequest
+  private _rqClient: HexRequest;
 
   /**
    * Creates an instance of HexApiClient.
@@ -58,12 +57,12 @@ export class HexApiClient {
     this._config = {
       apiKey,
       secret,
-      endPoint
-    }
+      endPoint,
+    };
     //Create new instance of HexRequest
-    this._rqClient = new HexRequest(endPoint)
+    this._rqClient = new HexRequest(endPoint);
     //Apply middle ware for timestamp header
-    this._rqClient.use(Utilities.timeStampHeader)
+    this._rqClient.use(Utilities.timeStampHeader);
   }
 
   /**
@@ -74,7 +73,7 @@ export class HexApiClient {
    * @memberof HexApiClient
    */
   public get(path: string, qs: any = null): Promise<any> {
-    return this._request(RequestMethod.GET, path, '', qs)
+    return this._request(RequestMethod.GET, path, '', qs);
   }
 
   /**
@@ -85,7 +84,7 @@ export class HexApiClient {
    * @memberof HexApiClient
    */
   public delete(path: string, qs: any = null): Promise<any> {
-    return this._request(RequestMethod.DELETE, path, '', qs)
+    return this._request(RequestMethod.DELETE, path, '', qs);
   }
 
   /**
@@ -96,7 +95,7 @@ export class HexApiClient {
    * @memberof HexApiClient
    */
   public patch(path: string, qs: any = null): Promise<any> {
-    return this._request(RequestMethod.PATCH, path, '', qs)
+    return this._request(RequestMethod.PATCH, path, '', qs);
   }
 
   /**
@@ -108,7 +107,7 @@ export class HexApiClient {
    * @memberof HexApiClient
    */
   public post(path: string, body: any, qs: any = null): Promise<any> {
-    return this._request(RequestMethod.POST, path, body, qs)
+    return this._request(RequestMethod.POST, path, body, qs);
   }
 
   /**
@@ -125,16 +124,16 @@ export class HexApiClient {
     let options: any = {
       method,
       headers: {
-        nonce: Utilities.getNonce()
+        nonce: Utilities.getNonce(),
       },
-      json: true
-    }
+      json: true,
+    };
     if (method === 'POST') {
       options['headers']['digest'] = Utilities.genDigest(body);
       options['body'] = body;
     }
     if (qs) {
-      options['qs'] = qs
+      options['qs'] = qs;
     }
     options['headers']['authorization'] = Utilities.genAuthorizationString(
       method,
@@ -143,8 +142,8 @@ export class HexApiClient {
       body,
       options['headers']['nonce'],
       this._config.secret,
-      this._config.apiKey)
-    return this._rqClient.request(path, options)
+      this._config.apiKey
+    );
+    return this._rqClient.request(path, options);
   }
-
 }
