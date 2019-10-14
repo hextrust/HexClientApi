@@ -66,6 +66,12 @@ export class Utilities {
     return `${paddingChar.repeat(pad - value.length)}${value}`
   }
 
+  /**
+   * Generate valid nonce number
+   * @static
+   * @returns {string}
+   * @memberof Utilities
+   */
   static getNonce(): string {
     const now = Utilities.getTime()
     if (now !== Utilities.last) {
