@@ -18,7 +18,6 @@ class HexRequest {
         return this._baseURL.host;
     }
     request(requestPath, otpions) {
-        console.log(requestPath, otpions);
         let requestUri = utilities_1.Utilities.toUri(this._baseURL, requestPath);
         for (let i = 0; i < this._middleware.length; i++) {
             otpions = this._middleware[i](otpions);
