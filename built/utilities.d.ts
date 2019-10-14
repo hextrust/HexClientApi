@@ -6,7 +6,7 @@ export declare class Utilities {
     static nonceIncr: number;
     static toUri(parsedUrl: UrlObject, path: string): string;
     static getTime(): number;
-    static padding(value: any, pad?: number): string;
+    static padding(value: any, paddingChar?: string, pad?: number): string;
     static getNonce(): string;
     static genDigest(body: any): string;
     static genSig(toSign: any, secret: string): string;

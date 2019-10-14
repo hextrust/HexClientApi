@@ -16,9 +16,9 @@ class Utilities {
     static getTime() {
         return (new Date()).getTime();
     }
-    static padding(value, pad = 3) {
+    static padding(value, paddingChar = '0', pad = 3) {
         value = value.toString();
-        return `${'0'.repeat(pad - value.length)}${value}`;
+        return `${paddingChar.repeat(pad - value.length)}${value}`;
     }
     static getNonce() {
         const now = Utilities.getTime();
