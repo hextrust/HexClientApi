@@ -1,10 +1,10 @@
 {
   "name": "hex-client-api",
-  "version": "0.2.30",
+  "version": "0.3.31",
   "description": "Handle HTTP/HTTPS requests",
   "author": "Chiro <dung.tran@hextech.io>",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "types": "./built/index.d.ts",
   "main": "./built/index.js",
   "scripts": {
