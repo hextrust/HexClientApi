@@ -3,3 +3,4 @@ node_modules/
 increase-built.js
 tsconfig.json
 src/
+docs/
