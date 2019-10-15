@@ -7,6 +7,10 @@
   "private": false,
   "types": "./built/index.d.ts",
   "main": "./built/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hextrust/HexClientApi.git"
+  },
   "scripts": {
     "build": "tsc && node ./increase-built.js",
     "doc": "typedoc",
