@@ -11,7 +11,7 @@ Client Docs:
 To install:
 
 ```
-npm i git://github.com:hextrust/HexClientApi.git --save
+npm i hex-client-api
 ```
 
 To try it out:

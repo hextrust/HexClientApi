@@ -1,12 +1,16 @@
 {
   "name": "hex-client-api",
-  "version": "0.2.30",
+  "version": "0.3.31",
   "description": "Handle HTTP/HTTPS requests",
-  "author": "Chiro <dung.tran@hextech.io>",
+  "author": "Chiro <dung.tran@hextrust.com>",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "types": "./built/index.d.ts",
   "main": "./built/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hextrust/HexClientApi.git"
+  },
   "scripts": {
     "build": "tsc && node ./increase-built.js",
     "doc": "typedoc",
