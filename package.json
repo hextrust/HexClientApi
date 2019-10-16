@@ -2,7 +2,7 @@
   "name": "hex-client-api",
   "version": "0.3.31",
   "description": "Handle HTTP/HTTPS requests",
-  "author": "Chiro <dung.tran@hextech.io>",
+  "author": "Chiro <dung.tran@hextrust.com>",
   "license": "MIT",
   "private": false,
   "types": "./built/index.d.ts",
