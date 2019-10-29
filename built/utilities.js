@@ -16,7 +16,7 @@ class Utilities {
     static getTime() {
         return (new Date()).getTime();
     }
-    static padding(value, paddingChar = '0', pad = 3) {
+    static padding(value, paddingChar = '0', pad = 4) {
         value = value.toString();
         return `${paddingChar.repeat(pad - value.length)}${value}`;
     }
