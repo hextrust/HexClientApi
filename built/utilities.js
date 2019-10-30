@@ -14,20 +14,31 @@ class Utilities {
         ].join(separator);
     }
     static getTime() {
-        return (new Date()).getTime();
+        return Date.now();
     }
-    static padding(value, paddingChar = '0', pad = 4) {
+    static padding(value, paddingChar = '0', pad = 3) {
         value = value.toString();
         return `${paddingChar.repeat(pad - value.length)}${value}`;
     }
     static getNonce() {
-        const now = Utilities.getTime();
-        if (now !== Utilities.last) {
-            Utilities.nonceIncr = -1;
-        }
-        Utilities.last = now;
-        Utilities.nonceIncr++;
-        return `${now}${Utilities.padding(Utilities.nonceIncr)}`;
+        let timestamp = Date.now();
+        let lowBits = timestamp & 0xffff;
+        let hiBits = timestamp >>> 16;
+        let randomPart = 0;
+        do {
+            randomPart = (Math.random() * 0xffff) >>> 0;
+        } while (((randomPart ^ lowBits) & Utilities.BITMASK_CHECKSUM) !== Utilities.BITMASK_CHECKSUM);
+        return ((((randomPart ^ hiBits) << 16) | lowBits) >>> 0).toString(16);
+    }
+    static checkNone(nonce) {
+        let intNonce = parseInt(nonce, 16) >>> 0;
+        let lowNonce = intNonce & 0xffff;
+        let hiNonce = intNonce >>> 16;
+        let timestamp = Date.now();
+        let lowBits = timestamp & 0xffff;
+        let hiBits = timestamp >>> 16;
+        return lowBits >= lowNonce
+            && ((hiNonce ^ hiBits ^ lowNonce) & Utilities.BITMASK_CHECKSUM) === Utilities.BITMASK_CHECKSUM;
     }
     static genDigest(body) {
         let msg = '';
@@ -56,5 +67,4 @@ class Utilities {
     }
 }
 exports.Utilities = Utilities;
-Utilities.last = Utilities.getTime();
-Utilities.nonceIncr = -1;
+Utilities.BITMASK_CHECKSUM = 42;
