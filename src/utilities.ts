@@ -1,6 +1,6 @@
-import { UrlObject } from 'url'
-import crypto from 'crypto'
-import { RequestMethod } from './client'
+import { UrlObject } from 'url';
+import crypto from 'crypto';
+import { RequestMethod } from './client';
 
 /**
  * Utilities to sign and manipulate data
@@ -8,14 +8,13 @@ import { RequestMethod } from './client'
  * @class Utilities
  */
 export class Utilities {
-
   /**
    * Last triggered timestamp
    * @static
    * @type {number}
    * @memberof Utilities
    */
-  static last: number = Utilities.getTime()
+  static last: number = Utilities.getTime();
 
   /**
    * Increment value
@@ -23,7 +22,7 @@ export class Utilities {
    * @type {number}
    * @memberof Utilities
    */
-  static nonceIncr: number = -1
+  static nonceIncr: number = -1;
 
   /**
    * Forging URi
@@ -34,12 +33,12 @@ export class Utilities {
    * @memberof Utilities
    */
   static toUri(parsedUrl: UrlObject, path: string): string {
-    let separator = parsedUrl.slashes ? '/' : '\\'
+    const separator = parsedUrl.slashes ? '/' : '\\';
     return [
       `${parsedUrl.protocol}${separator}`,
       parsedUrl.host,
-      parsedUrl.slashes ? path.replace(/^\//, '') : path.replace(/^\\/, '')
-    ].join(separator)
+      parsedUrl.slashes ? path.replace(/^\//, '') : path.replace(/^\\/, ''),
+    ].join(separator);
   }
 
   /**
@@ -49,7 +48,7 @@ export class Utilities {
    * @memberof Utilities
    */
   static getTime(): number {
-    return (new Date()).getTime()
+    return new Date().getTime();
   }
 
   /**
@@ -61,9 +60,9 @@ export class Utilities {
    * @returns {string}
    * @memberof Utilities
    */
-  static padding(value: any, paddingChar: string = '0', pad: number = 3): string {
-    value = value.toString()
-    return `${paddingChar.repeat(pad - value.length)}${value}`
+  static padding(value: any, paddingChar: string = '0', pad: number = 4): string {
+    value = value.toString();
+    return `${paddingChar.repeat(pad - value.length)}${value}`;
   }
 
   /**
@@ -73,13 +72,13 @@ export class Utilities {
    * @memberof Utilities
    */
   static getNonce(): string {
-    const now = Utilities.getTime()
+    const now = Utilities.getTime();
     if (now !== Utilities.last) {
-      Utilities.nonceIncr = -1
+      Utilities.nonceIncr = -1;
     }
-    Utilities.last = now
-    Utilities.nonceIncr++
-    return `${now}${Utilities.padding(Utilities.nonceIncr)}`
+    Utilities.last = now;
+    Utilities.nonceIncr++;
+    return `${now}${Utilities.padding(Utilities.nonceIncr)}`;
   }
 
   /**
@@ -90,11 +89,14 @@ export class Utilities {
    * @memberof Utilities
    */
   static genDigest(body: any): string {
-    let msg: string = ''
-    if (typeof (body) === 'object') {
-      msg = JSON.stringify(body)
+    let msg: string = '';
+    if (typeof body === 'object') {
+      msg = JSON.stringify(body);
     }
-    return `SHA-256=${crypto.createHash("sha256").update(msg, 'utf8').digest('base64')}`;
+    return `SHA-256=${crypto
+      .createHash('sha256')
+      .update(msg, 'utf8')
+      .digest('base64')}`;
   }
 
   /**
@@ -106,7 +108,10 @@ export class Utilities {
    * @memberof Utilities
    */
   static genSig(toSign: any, secret: string): string {
-    return crypto.createHmac("sha512", secret).update(toSign).digest("base64");
+    return crypto
+      .createHmac('sha512', secret)
+      .update(toSign)
+      .digest('base64');
   }
 
   /**
@@ -122,15 +127,25 @@ export class Utilities {
    * @returns
    * @memberof Utilities
    */
-  static genAuthorizationString(method: RequestMethod, host: string, path: string, body: any, nonce: string, secret: string, apiKey: string) {
-    const requestLine: string = `${method} ${path} HTTP/1.1`
-    let stringToSign: string
+  static genAuthorizationString(
+    method: RequestMethod,
+    host: string,
+    path: string,
+    body: any,
+    nonce: string,
+    secret: string,
+    apiKey: string,
+  ) {
+    const requestLine: string = `${method} ${path} HTTP/1.1`;
+    let stringToSign: string;
     if (method === 'POST') {
-      stringToSign = `nonce: ${nonce}\nhost: ${host}\ndigest: ${Utilities.genDigest(body)}\n${requestLine}`
+      stringToSign = `nonce: ${nonce}\nhost: ${host}\ndigest: ${Utilities.genDigest(body)}\n${requestLine}`;
     } else {
-      stringToSign = `nonce: ${nonce}\nhost: ${host}\n${requestLine}`
+      stringToSign = `nonce: ${nonce}\nhost: ${host}\n${requestLine}`;
     }
-    return `hmac username="${apiKey}", algorithm="hmac-sha512", headers="nonce host${method === 'POST' ? ' digest ' : ' '}request-line", signature="${Utilities.genSig(stringToSign, secret)}"`
+    return `hmac username="${apiKey}", algorithm="hmac-sha512", headers="nonce host${
+      method === 'POST' ? ' digest ' : ' '
+    }request-line", signature="${Utilities.genSig(stringToSign, secret)}"`;
   }
 
   /**
@@ -141,8 +156,7 @@ export class Utilities {
    * @memberof Utilities
    */
   static timeStampHeader(options: any): any {
-    options['headers']['date'] = (new Date()).toUTCString()
-    return options
+    options.headers.date = new Date().toUTCString();
+    return options;
   }
-
 }

@@ -6,7 +6,7 @@ For full API specification please contact Hex Trust Ops Team
 
 Client Docs:
 
-[Client Docs](../docs/index.html)
+[Client Docs](../docs/)
 
 To install:
 
