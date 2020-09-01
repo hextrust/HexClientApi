@@ -4,9 +4,7 @@ Hex APIs Node JS helper.
 
 For full API specification please contact Hex Trust Ops Team
 
-Client Docs:
-
-[Client Docs](../docs/)
+Client API Docs see ./docs folder
 
 To install:
 
