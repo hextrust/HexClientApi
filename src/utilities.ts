@@ -10,20 +10,12 @@ import { RequestMethod } from './client'
 export class Utilities {
 
   /**
-   * Last triggered timestamp
+   * Nonce bitmask checksum 
+   * 101010
    * @static
-   * @type {number}
    * @memberof Utilities
    */
-  static last: number = Utilities.getTime()
-
-  /**
-   * Increment value
-   * @static
-   * @type {number}
-   * @memberof Utilities
-   */
-  static nonceIncr: number = -1
+  static BITMASK_CHECKSUM = 42
 
   /**
    * Forging URi
@@ -49,7 +41,7 @@ export class Utilities {
    * @memberof Utilities
    */
   static getTime(): number {
-    return (new Date()).getTime()
+    return Date.now()
   }
 
   /**
@@ -67,19 +59,39 @@ export class Utilities {
   }
 
   /**
-   * Generate valid nonce number
+   * Generate nonce number
    * @static
    * @returns {string}
    * @memberof Utilities
    */
   static getNonce(): string {
-    const now = Utilities.getTime()
-    if (now !== Utilities.last) {
-      Utilities.nonceIncr = -1
+    let timestamp = Date.now()
+    let lowBits = timestamp & 0xffff
+    let hiBits = timestamp >>> 16
+    let randomPart = 0
+    do {
+      randomPart = (Math.random() * 0xffff) >>> 0
     }
-    Utilities.last = now
-    Utilities.nonceIncr++
-    return `${now}${Utilities.padding(Utilities.nonceIncr)}`
+    while (((randomPart ^ lowBits) & Utilities.BITMASK_CHECKSUM) !== Utilities.BITMASK_CHECKSUM)
+    return ((((randomPart ^ hiBits) << 16) | lowBits) >>> 0).toString(16)
+  }
+
+  /**
+   * Validating nonce value
+   * @static
+   * @param {string} nonce
+   * @returns {boolean}
+   * @memberof Utilities
+   */
+  static checkNone(nonce: string): boolean {
+    let intNonce = parseInt(nonce, 16) >>> 0
+    let lowNonce = intNonce & 0xffff
+    let hiNonce = intNonce >>> 16
+    let timestamp = Date.now()
+    let lowBits = timestamp & 0xffff
+    let hiBits = timestamp >>> 16
+    return lowBits >= lowNonce
+      && ((hiNonce ^ hiBits ^ lowNonce) & Utilities.BITMASK_CHECKSUM) === Utilities.BITMASK_CHECKSUM
   }
 
   /**

@@ -1,6 +1,6 @@
 {
   "name": "hex-client-api",
-  "version": "0.3.31",
+  "version": "0.3.33",
   "description": "Handle HTTP/HTTPS requests",
   "author": "Chiro <dung.tran@hextrust.com>",
   "license": "MIT",
