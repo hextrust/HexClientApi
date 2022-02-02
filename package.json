@@ -1,6 +1,6 @@
 {
   "name": "hex-client-api",
-  "version": "0.3.32",
+  "version": "0.3.33",
   "description": "Handle HTTP/HTTPS requests",
   "author": "Chiro <dung.tran@hextrust.com>",
   "license": "MIT",
@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@types/node": "^12.7.2",
-    "typedoc": "^0.15.0",
+    "typedoc": "^0.22.11",
     "typescript": "^3.6.2"
   },
   "dependencies": {
